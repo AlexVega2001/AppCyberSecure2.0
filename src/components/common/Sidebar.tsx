@@ -23,25 +23,25 @@ const Sidebar = () => {
         }
       }}
     >
-      <List disablePadding>
-        <Toolbar sx={{ marginBottom: "20px" }}>
+      <List disablePadding >
+        <Toolbar sx={{ marginTop: "20px", marginBottom: "20px" }}>
           <Stack
             sx={{ width: "100%" }}
             direction="row"
             justifyContent="center"
           >
-            <Avatar sx={{ width: 150, height: 150 }} src={assets.images.logo} />
+            <Avatar sx={{ width: 230, height: 230 }} src={assets.images.logo} />
           </Stack>
         </Toolbar>
-        {appRoutes.map((route, index) => (
-          route.sidebarProps ? (
-            route.child ? (
-              <SidebarItemCollapse item={route} key={index} />
-            ) : (
+          {appRoutes.map((route, index) => (
+              route.sidebarProps ? (
+              route.child ? (
+              <SidebarItemCollapse item={route} key={index}/>
+              ) : (
               <SidebarItem item={route} key={index} />
-            )
-          ) : null
-        ))}
+              )
+              ) : null
+          ))}
         <Toolbar sx={{ marginTop: "20px" }}>
           <Stack
             sx={{ width: "100%" }}
