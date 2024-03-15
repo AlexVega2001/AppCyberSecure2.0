@@ -1,9 +1,19 @@
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CardComponent from '../../components/common/CardComponent';
 import dataProtected from '../../assets/images/ProteccionDatos.png'
+import { fetchApiCyberSecure } from '../../helpers/fetchData';
 
 const HomePage = () => {
+
+  useEffect(() => {
+    const handleData = async () => {
+      const data = await fetchApiCyberSecure('GET', '/listIssues');
+      console.log(data);
+    }
+    handleData();
+  }, [])
+  
 
   return (
     <div>

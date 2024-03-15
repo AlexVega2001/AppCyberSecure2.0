@@ -1,9 +1,9 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import React, { useState } from 'react'
-import { ModalComponent } from './ModalComponent';
 import { Link } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { DialogComponent } from './DialogComponent';
 
 type CardProps = {
     title: string;
@@ -63,7 +63,6 @@ const CardComponent = ({title, description, image, width=300, height=200, isModa
                                     }
                                 </CardActions>
                             </Box>
-
                         </Card>
                     )    
                 :
@@ -99,7 +98,7 @@ const CardComponent = ({title, description, image, width=300, height=200, isModa
                         </Card>
                     )
             }
-            <ModalComponent open={open} hideModal={HandleCloseModal}/>
+            <DialogComponent open={open} hideDialog={HandleCloseModal}/>
         </div>
     );
 };

@@ -10,6 +10,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const HomeResourcesPage = () => {
     const { id } = useParams();
     console.log("IdCard: " + id)
+
+    const handleResources = () => {
+        console.log("Hola")
+    }
+
     return (
         <>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
