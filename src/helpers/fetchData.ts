@@ -1,4 +1,4 @@
-const API_CyberSecure='https://788f-210-211-56-90.ngrok-free.app/api'; //Importante revisar la ip de nuestra máquina
+const API_CyberSecure='https://cyber-secure-be7c7289eff5.herokuapp.com/api'; //Importante revisar la ip de nuestra máquina
 
 type MethodProps = 'GET' | 'POST' | 'PUT' | 'DELETE';
 

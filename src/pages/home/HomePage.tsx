@@ -1,15 +1,25 @@
 import { Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardComponent from '../../components/common/CardComponent';
 import dataProtected from '../../assets/images/ProteccionDatos.png'
 import { fetchApiCyberSecure } from '../../helpers/fetchData';
 
+
+interface Issue {
+  id: number;
+  name: string;
+  description: string;
+  // Añade aquí otras propiedades si las hay
+}
+
 const HomePage = () => {
+
+  const [data, setData] = useState<Issue[]>([]);
 
   useEffect(() => {
     const handleData = async () => {
-      const data = await fetchApiCyberSecure('GET', '/listIssues');
-      console.log(data);
+      const fetchData: Issue[] = await fetchApiCyberSecure('GET', '/listIssues');
+      setData(fetchData);
     }
     handleData();
   }, [])
@@ -21,7 +31,16 @@ const HomePage = () => {
         Temas de asesoría en Ciberseguridad
       </Typography>
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexWrap: 'wrap', gap: 10}}>
-        <CardComponent 
+      {data.map((item, index) => (
+          <CardComponent 
+            key={index}
+            title={item.name} 
+            description={item.description} 
+            image={dataProtected} // Ajusta esto según la estructura de tu objeto de datos
+            objectFit='cover'
+            btnName='Ver más'/>
+        ))}
+        {/* <CardComponent 
           title={'Protección de datos'} 
           description='Información sobre protección de datos' 
           image={dataProtected} 
@@ -38,7 +57,7 @@ const HomePage = () => {
           description='Información sobre protección de datos' 
           image={dataProtected} 
           objectFit='cover'
-          btnName='Ver más'/>
+          btnName='Ver más'/> */}
       </div>
     </div>
   );
