@@ -8,7 +8,7 @@ import { Button, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const HomeResourcesPage = () => {
-    const { id } = useParams();
+    const { id, title } = useParams();
     console.log("IdCard: " + id)
 
     const handleResources = () => {
@@ -19,7 +19,7 @@ const HomeResourcesPage = () => {
         <>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Typography variant='h6' color={"#fff"} style={{ marginBottom: '20px' }}>
-                    Recursos para la Protección de Datos
+                    Recursos para la {title}
                 </Typography>
                 <Link to='/home' >
                     <Button variant="contained" size="medium" startIcon={<ArrowBackIcon />} sx={{bgcolor: '#A31217'}}>Regresar</Button>
@@ -28,21 +28,21 @@ const HomeResourcesPage = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexWrap: 'wrap', gap: 10 }}>
                 <CardComponent 
                     title={'Leyes'} 
-                    description='Información sobre protección de datos' 
+                    description=''
                     image={lawFirm} 
                     isModal={true}
                     objectFit='contain'
                     btnName='Ver más'/>
                 <CardComponent 
                     title={'Convenios'} 
-                    description='Información sobre protección de datos' 
+                    description='' 
                     image={agreement} 
                     isModal={true}
                     objectFit='contain'
                     btnName='Ver más'/>
                 <CardComponent 
                     title={'Recomendaciones'} 
-                    description='Información sobre protección de datos' 
+                    description='' 
                     image={recommendation} 
                     isModal={true}
                     objectFit='contain'

@@ -31,7 +31,7 @@ const appRoutes: RouteType[] = [
     }
   },
   {
-    path: "/home/recursos/:id",
+    path: "/home/recursos/:id/:title",
     element: <HomeResourcesPage />,
     state: "home.recursos"
   },

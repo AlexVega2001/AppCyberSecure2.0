@@ -36,28 +36,11 @@ const HomePage = () => {
             key={index}
             title={item.name} 
             description={item.description} 
-            image={dataProtected} // Ajusta esto según la estructura de tu objeto de datos
+            image={dataProtected}
             objectFit='cover'
-            btnName='Ver más'/>
+            btnName='Ver más'
+            id={item.id}/>
         ))}
-        {/* <CardComponent 
-          title={'Protección de datos'} 
-          description='Información sobre protección de datos' 
-          image={dataProtected} 
-          objectFit='cover'
-          btnName='Ver más'/>
-        <CardComponent 
-          title={'Protección de datos'} 
-          description='Información sobre protección de datos' 
-          image={dataProtected}
-          objectFit='cover'
-          btnName='Ver más'/>
-        <CardComponent 
-          title={'Protección de datos'} 
-          description='Información sobre protección de datos' 
-          image={dataProtected} 
-          objectFit='cover'
-          btnName='Ver más'/> */}
       </div>
     </div>
   );

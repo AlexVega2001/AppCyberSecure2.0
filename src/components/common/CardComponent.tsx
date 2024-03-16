@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import React, { useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { DialogComponent } from './DialogComponent';
@@ -17,13 +17,17 @@ type CardProps = {
     bgCard?: string;
     horizontal?: boolean;
     btnName: string;
+    id?: number;
+    recurso?: number;
 }
 
-const CardComponent = ({title, description, image, width=300, height=200, isModal=false, objectFit= "contain", display="block", bgCard="#7A7A7A", horizontal=false, btnName}: CardProps) => {
+const CardComponent = ({recurso, id, title, description, image, width=300, height=200, isModal=false, objectFit= "contain", display="block", bgCard="#7A7A7A", horizontal=false, btnName}: CardProps) => {
     const [open, setOpen] = useState(false);
     const HandleOpenModal = (id: number) => {
         setOpen(true);
     }
+
+    console.log(id);
 
     const HandleCloseModal = () => {
         setOpen(false);
@@ -90,7 +94,7 @@ const CardComponent = ({title, description, image, width=300, height=200, isModa
                                     isModal ?
                                         <Button variant="contained" size="medium" color='error' startIcon={<RemoveRedEyeIcon />} onClick={() => HandleOpenModal(1)}>Ver más</Button>
                                         :
-                                        <Link to={`/home/recursos/${1}`} >
+                                        <Link to={`/home/recursos/${id}/${title}`} >
                                             <Button variant="contained" size="medium" color='error' startIcon={<RemoveRedEyeIcon />}>Ver más</Button>
                                         </Link>
                                 }
