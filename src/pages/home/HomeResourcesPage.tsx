@@ -8,12 +8,8 @@ import { Button, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const HomeResourcesPage = () => {
-    const { id, title } = useParams();
-    console.log("IdCard: " + id)
 
-    const handleResources = () => {
-        console.log("Hola")
-    }
+    const { id, title } = useParams();
 
     return (
         <>
@@ -22,7 +18,12 @@ const HomeResourcesPage = () => {
                     Recursos para la {title}
                 </Typography>
                 <Link to='/home' >
-                    <Button variant="contained" size="medium" startIcon={<ArrowBackIcon />} sx={{bgcolor: '#A31217'}}>Regresar</Button>
+                    <Button variant="contained" size="medium" startIcon={<ArrowBackIcon />} sx={{bgcolor: '#A31217', '&:hover': {
+                                    bgcolor: '#D32F2F', // por ejemplo, rojo oscuro para el hover
+                                },
+                                '&.Mui-focused': {
+                                    bgcolor: '#D32F2F', // el mismo rojo oscuro para el focus
+                                }}}>Regresar</Button>
                 </Link>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexWrap: 'wrap', gap: 10 }}>
@@ -32,21 +33,27 @@ const HomeResourcesPage = () => {
                     image={lawFirm} 
                     isModal={true}
                     objectFit='contain'
-                    btnName='Ver más'/>
+                    btnName='Ver más'
+                    idIssue={Number(id)}
+                    idTypeResource={1}/>
                 <CardComponent 
                     title={'Convenios'} 
                     description='' 
                     image={agreement} 
                     isModal={true}
                     objectFit='contain'
-                    btnName='Ver más'/>
+                    btnName='Ver más'
+                    idIssue={Number(id)}
+                    idTypeResource={2}/>
                 <CardComponent 
                     title={'Recomendaciones'} 
                     description='' 
                     image={recommendation} 
                     isModal={true}
                     objectFit='contain'
-                    btnName='Ver más'/>
+                    btnName='Ver más'
+                    idIssue={Number(id)}
+                    idTypeResource={3}/>
             </div>
         </>
     )

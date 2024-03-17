@@ -1,25 +1,28 @@
-const API_CyberSecure='https://cyber-secure-be7c7289eff5.herokuapp.com/api'; //Importante revisar la ip de nuestra máquina
+const API_CyberSecure = 'https://cyber-secure-be7c7289eff5.herokuapp.com/api';
 
 type MethodProps = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-export const fetchApiCyberSecure = async (method: MethodProps, endPoint: string, data?: any) => {
+export const fetchApiCyberSecure = async (method: MethodProps, endPoint: string, params?: Record<number, string>, isPdf?: boolean ) => {
     try {
+        // Construir la URL con los parámetros si están presentes
+        let url = `${API_CyberSecure}${endPoint}`;
+        if (params) {
+            const queryParams = new URLSearchParams(params);
+            url += `?${queryParams.toString()}`;
+        }
         
         // Configurar la solicitud
         const requestOptions: RequestInit = {
             method: method,
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer <token-csrf>'
+                'Content-Type': isPdf ? 'application/json' : 'application/pdf'
             },
-            mode: 'cors', // Permitir el acceso desde cualquier origen
-            cache: 'no-cache', // Usar el cache por defecto del navegador
-            body: data ? JSON.stringify(data) : undefined // Convertir los datos a JSON si están presentes
+            mode: 'cors',
+            cache: 'no-cache'
         };
         
         // Realizar la solicitud
-        const response = await fetch(`${API_CyberSecure}${endPoint}`, requestOptions);
-        console.log(response);
+        const response = await fetch(url, requestOptions);
         
         // Verificar si la solicitud fue exitosa
         if (!response.ok) {
@@ -29,8 +32,7 @@ export const fetchApiCyberSecure = async (method: MethodProps, endPoint: string,
         // Convertir la respuesta a JSON y retornarla
         return await response.json();
     } catch (error) {
-        // Manejar errores de red o de análisis JSON
         console.error('Error en la solicitud:', error);
-        throw error; // Propagar el error para que sea manejado por el código que llama a fetchApi
+        throw error;
     }
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
 import assets from '../../assets';
 import SaveIcon from '@mui/icons-material/Save';
@@ -119,6 +119,13 @@ const ProfilePage = (props: Props) => {
                             variant="contained" 
                             size="medium" 
                             color='error' 
+                            sx={{
+                                bgcolor: '#A31217', marginTop: '20px', height: '50px', '&:hover': {
+                                    bgcolor: '#D32F2F', // por ejemplo, rojo oscuro para el hover
+                                },
+                                '&.Mui-focused': {
+                                    bgcolor: '#D32F2F', // el mismo rojo oscuro para el focus
+                                }}}
                             startIcon={<SaveIcon />} 
                             onClick={HandleSubmit}>
                                 Guardar cambios

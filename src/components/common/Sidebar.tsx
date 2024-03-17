@@ -6,8 +6,18 @@ import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  
+  const navigate = useNavigate();
+  
+  const HandleLogout = () => {
+    localStorage.removeItem('token');
+    // Redirigir al usuario a la página de inicio de sesión
+    navigate('/login');
+  }
+
   return (
     <Drawer
       variant="permanent"
@@ -48,7 +58,7 @@ const Sidebar = () => {
             direction="row"
             justifyContent="center"
           >
-            <Button variant="outlined" color="error" sx={{width: '100%'}} startIcon={<LogoutIcon />}>
+            <Button variant="outlined" color="error" sx={{width: '100%'}} startIcon={<LogoutIcon />} onClick={HandleLogout}>
               Cerrar Sesión
             </Button>
           </Stack>
