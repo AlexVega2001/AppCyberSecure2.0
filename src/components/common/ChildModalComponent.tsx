@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { fetchApiCyberSecure } from '../../helpers/fetchData';
 import assets from '../../assets';
 import { PDFViewer } from '../../interfaces/PdfViewer.interface';
+import axios from 'axios';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -29,10 +30,12 @@ type ModalChildProps = {
 
 const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResource, idResource }) => {
 
-    const [pdfUrl, setPdfUrl] = useState<PDFViewer>({
+    /* const [pdfUrl, setPdfUrl] = useState<PDFViewer>({
         base64Content: '',
         name: '',
-    });
+    }); */
+    const [pdfUrl, setPdfUrl] = useState('');
+
     const [loading, setLoading] = useState(true);
 
     const handleClose = () => {
@@ -42,7 +45,16 @@ const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResou
     useEffect(() => {
         const fetchPdf = async () => {
             try {
-                setLoading(true);
+                const response = await axios.get(`https://cyber-secure-be7c7289eff5.herokuapp.com/api/viewResources?id=${idResource}&recurso=${idTypeResource}`, {
+                    responseType: 'arraybuffer',
+                  });
+                const blob = new Blob([response.data], { type: 'application/pdf' });
+
+                // Crear una URL del blob para mostrar el PDF
+                const pdfUrl = URL.createObjectURL(blob);
+      
+                setPdfUrl(pdfUrl);
+                /* setLoading(true);
                 // const response = await fetch(`https://cyber-secure-be7c7289eff5.herokuapp.com/api/viewResources?id=${idResource}&recurso=${idTypeResource}`);
                 // const blob = await response.blob(); 
                 // Define los parámetros que deseas enviar
@@ -59,13 +71,10 @@ const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResou
                 setPdfUrl({
                     base64Content: data,
                     name: data.name,
-                });
+                }); */
             } catch (error) {
                 console.error('Error al cargar el PDF:', error);
-                setPdfUrl({
-                    base64Content: '',
-                    name: '',
-                }); // Reiniciar el estado del PDF si hay un error al cargarlo
+                setPdfUrl(''); // Reiniciar el estado del PDF si hay un error al cargarlo
             } finally {
                 setLoading(false);
             }
@@ -97,8 +106,7 @@ const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResou
                                 {
                                     pdfUrl
                                         ? (
-                                            <iframe src={`data:application/pdf;base64,${pdfUrl.base64Content}`} style={{width: '100%', height: style.height - 40 , border: 'none'}}></iframe>
-                                                
+                                            <iframe src={pdfUrl} width="100%" height="900" title="PDF Viewer" />   
                                         )
                                         : (
                                             <Grid item xs={12} sx={{ border: '2p solid green' }}>
