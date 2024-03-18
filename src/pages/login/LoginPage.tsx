@@ -1,11 +1,12 @@
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import assets from '../../assets';
 import { useForm } from '../../hooks/useForm';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import { fetchApiCyberSecure } from '../../helpers/fetchData';
 import AlertComponent from '../../components/common/AlertComponent';
+import { UserContext } from '../../context/UseContext';
 
 interface ResponseProps {
     code: number,
@@ -24,6 +25,7 @@ const LoginPage = () => {
     }
 
     const { user, password, onInputChange, reset }: any = useForm(initialForm);
+    const { setDataUser }: any = useContext(UserContext);
 
     // Función para cerrar la alerta
     const handleCloseAlert = () => {
@@ -44,6 +46,7 @@ const LoginPage = () => {
             const data: ResponseProps = await fetchApiCyberSecure('GET', '/logIn', params);
             if (data.code === 2) {
                 localStorage.setItem('token', data.data?.id); // Asume que el token viene en data.data.token
+                setDataUser(data.data);
                 setAlert({ show: false, severity: 'success', title: 'Exitoso', description: 'Login exitoso' });
                 setTimeout(handleCloseAlert, 2000);
                 navigate('/');

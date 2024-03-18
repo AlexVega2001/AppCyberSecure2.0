@@ -29,7 +29,7 @@ const HomeResourcesPage = () => {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexWrap: 'wrap', gap: 10 }}>
                 <CardComponent 
                     title={'Leyes'} 
-                    description=''
+                    description='Las leyes de ciberseguridad son un conjunto de regulaciones diseñadas para proteger a las redes, dispositivos y datos de ataques, daños o accesos no autorizados.'
                     image={lawFirm} 
                     isModal={true}
                     objectFit='contain'
@@ -38,7 +38,7 @@ const HomeResourcesPage = () => {
                     idTypeResource={1}/>
                 <CardComponent 
                     title={'Convenios'} 
-                    description='' 
+                    description='Los convenios de ciberseguridad son acuerdos internacionales entre países para cooperar en la protección contra amenazas cibernéticas.' 
                     image={agreement} 
                     isModal={true}
                     objectFit='contain'
@@ -47,7 +47,7 @@ const HomeResourcesPage = () => {
                     idTypeResource={2}/>
                 <CardComponent 
                     title={'Recomendaciones'} 
-                    description='' 
+                    description='Las recomendaciones de ciberseguridad se enfocan en proteger la información y los sistemas informáticos frente a amenazas digitales.' 
                     image={recommendation} 
                     isModal={true}
                     objectFit='contain'

@@ -1,24 +1,22 @@
-import { Avatar, Box, Grid, Modal, Typography } from '@mui/material';
+import { Avatar, Grid, Modal, Typography } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react'
-import { fetchApiCyberSecure } from '../../helpers/fetchData';
 import assets from '../../assets';
-import { PDFViewer } from '../../interfaces/PdfViewer.interface';
 import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 800,
-    height: 800,
+    width: '60%',
     bgcolor: '#282828',
     borderRadius: '10px',
     pt: 2,
     px: 4,
     pb: 3,
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'center'
 }
 
 type ModalChildProps = {
@@ -30,10 +28,6 @@ type ModalChildProps = {
 
 const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResource, idResource }) => {
 
-    /* const [pdfUrl, setPdfUrl] = useState<PDFViewer>({
-        base64Content: '',
-        name: '',
-    }); */
     const [pdfUrl, setPdfUrl] = useState('');
 
     const [loading, setLoading] = useState(true);
@@ -47,31 +41,13 @@ const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResou
             try {
                 const response = await axios.get(`https://cyber-secure-be7c7289eff5.herokuapp.com/api/viewResources?id=${idResource}&recurso=${idTypeResource}`, {
                     responseType: 'arraybuffer',
-                  });
+                });
                 const blob = new Blob([response.data], { type: 'application/pdf' });
 
                 // Crear una URL del blob para mostrar el PDF
                 const pdfUrl = URL.createObjectURL(blob);
-      
+
                 setPdfUrl(pdfUrl);
-                /* setLoading(true);
-                // const response = await fetch(`https://cyber-secure-be7c7289eff5.herokuapp.com/api/viewResources?id=${idResource}&recurso=${idTypeResource}`);
-                // const blob = await response.blob(); 
-                // Define los parámetros que deseas enviar
-                const params = { 'id': idResource, 'recurso': idTypeResource };
-                // Realiza la solicitud con la función fetchApiCyberSecure y pasa los parámetros
-                const data = await fetchApiCyberSecure('GET', '/viewResources', params);
-                // var binaryContent = Uint8Array.from(atob(data.base64Content), c => c.charCodeAt(0))
-
-                // // Crea un blob con el contenido decodificado
-                // var blob = new Blob([binaryContent], { type: 'application/pdf' });
-
-                // // Crea una URL de objeto para el blob
-                // var url = URL.createObjectURL(blob);
-                setPdfUrl({
-                    base64Content: data,
-                    name: data.name,
-                }); */
             } catch (error) {
                 console.error('Error al cargar el PDF:', error);
                 setPdfUrl(''); // Reiniciar el estado del PDF si hay un error al cargarlo
@@ -87,29 +63,34 @@ const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResou
     return (
         <Modal
             open={open}
-            onClose={handleClose}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-            <Box sx={{ ...style }}>
+            <Grid container sx={{ ...style }}>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <CloseIcon onClick={handleClose} sx={{ color: 'white', width: 38, height: 38, cursor: 'pointer', marginBottom: '10px' }} />
+                </Grid>
                 {
                     loading
                         ?
                         ( // Mostrar indicador de carga si se están cargando los datos
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <span className='loader'></span>
-                            </div>
+                            </Grid>
                         )
                         :
                         (
-                            <div>
+                            <>
                                 {
                                     pdfUrl
                                         ? (
-                                            <iframe src={pdfUrl} width="100%" height="900" title="PDF Viewer" />   
+                                            <Grid item xs={12} sx={{ width: '100%' }}>
+                                                <iframe src={pdfUrl} width="100%" title="PDF Viewer" style={{ height: 'calc(100vh - 200px)', border: 'none' }}/>
+                                            </Grid>
                                         )
                                         : (
-                                            <Grid item xs={12} sx={{ border: '2p solid green' }}>
+                                            <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                                                 <Avatar
                                                     alt="logo-noResult"
                                                     src={assets.images.noResult}
@@ -121,10 +102,10 @@ const ChildModalComponent: FC<ModalChildProps> = ({ hideModal, open, idTypeResou
                                             </Grid>
                                         )
                                 }
-                            </div>
+                            </>
                         )
                 }
-            </Box>
+            </Grid>
         </Modal>
     );
 }
